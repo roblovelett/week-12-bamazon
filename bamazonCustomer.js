@@ -18,109 +18,23 @@ remaining quantity. * Once the update goes through, show the customer the total
 cost of their purchase.
 */
 
-var mysql = require("mysql");
 var inquirer = require("inquirer");
-var connection = require('./mysql.js'); //sql
+var mysql = require("mysql");
+var config = require("./configs.js")
 
-console.log(connection);
+var connection = mysql.createConnection({
+    host: config.host,
+    port: config.port,
+    user: config.user,
+    password: config.password,
+    database: config.database
+});
 
-/*
+connection.connect();
+
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
-})
-
-function PushData(sellerName, itemName, itemDesc, startPrice){
-    this.sendData = function(){
-        connection.query("INSERT INTO items SET ?", {
-            item_name: itemName,
-            seller_name: sellerName,
-            item_desc: itemDesc,
-            start_price: startPrice
-        }, function(err, res){
-            if (err) throw err;
-            console.log(res);
-        });
-    }
-}
-
-function Item(data){
-    this.test = function(){
-        console.log(data)
-    };
-    this.postItem = function(){
-        var askForItem = inquirer.prompt([
-            {
-                type: "input",
-		        message: "What is your name?",
-		        name: "sellerName"
-            },
-            {
-                type: "input",
-		        message: "What is the item's name?",
-		        name: "itemName"
-            },
-            {
-                type: "input",
-		        message: "Please provide a short description of the item.",
-		        name: "itemDesc"
-            },
-            {
-                type: "input",
-		        message: "What is the starting price?",
-		        name: "startPrice"
-            }
-        ]).then(function(res){
-            var push = new PushData(res.sellerName, res.itemName, 
-            res.itemDesc, res.startPrice);
-            push.sendData();
-        });
-    };
-    this.bidItem = function(){
-        
-    };
-}
-
-var askForAction = inquirer.prompt([
-	{
-		type: "input",
-		message: "Do you want to 'post' or 'bid' on an item?",
-		name: "action"
-	}
-
-]).then(function(data){
-   var newItem = new Item(data);
-   if(data.action === 'post'){
-       newItem.postItem();
-   } else if(data.action === 'bid'){
-       newItem.bidItem();
-   }
 });
-*/
 
-/*
-var askForItem = inquirer.prompt([
-            {
-                type: "input",
-		        message: "What is your name?",
-		        name: "sellerName"
-            },
-            {
-                type: "input",
-		        message: "What is the item's name?",
-		        name: "itemName"
-            },
-            {
-                type: "input",
-		        message: "Please provide a short description of the item.",
-		        name: "itemDesc"
-            },
-            {
-                type: "input",
-		        message: "What is the starting price?",
-		        name: "startPrice"
-            }
-        ]).then(function(res){
-            console.log(res.itemDesc);
-        });
-*/
+console.log(connection);
