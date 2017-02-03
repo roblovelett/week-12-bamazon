@@ -94,6 +94,7 @@ function askProducts(products) {
                         query += "WHERE item_id = " + product.item_id + ";";
                         connection.query(query, function (error, results, fields) {
                             if (error) throw error;
+                            console.log("error: " + error + "\n\results: " + results + "\n\fields: " + fields);
                         });
                     return true;
                 } else if (stock < 0) {
@@ -118,5 +119,5 @@ function askProducts(products) {
         }
     ];
 
-    inquirer.prompt(questions);
+    inquirer.prompt(questions).then(function(answers){});
 };
